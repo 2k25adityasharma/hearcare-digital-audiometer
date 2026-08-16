@@ -1,26 +1,21 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const Patient = require('./models/Patient');
 const patientRoutes = require('./routes/patientRoutes');
+const testSessionRoutes = require('./routes/testSessionRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 
-// Connect MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/health_db')
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch((err) => console.error('❌ DB Connection Error:', err));
+  .then(() => console.log('MongoDB Connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Fresh backend is running live!');
-});
 app.use('/api/patients', patientRoutes);
-
-
+app.use('/api/test-sessions', testSessionRoutes);
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
