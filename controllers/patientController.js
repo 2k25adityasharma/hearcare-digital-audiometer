@@ -1,5 +1,6 @@
 const Patient = require('../models/Patient');
 
+// Create new patient
 exports.createPatient = async (req, res) => {
   try {
     const patient = new Patient(req.body);
@@ -10,6 +11,7 @@ exports.createPatient = async (req, res) => {
   }
 };
 
+// Get single patient by ID
 exports.getPatient = async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
@@ -19,5 +21,15 @@ exports.getPatient = async (req, res) => {
     res.status(200).json({ patient });
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+// Get all patients (New function added)
+exports.getPatients = async (req, res) => {
+  try {
+    const patients = await Patient.find();
+    res.status(200).json(patients);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Patient = require('./models/Patient');
 const patientRoutes = require('./routes/patientRoutes');
+const authRoutes = require('./routes/authRoutes'); // <-- Yahan add karo
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -17,9 +19,9 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/health_db')
 app.get('/', (req, res) => {
   res.send('Fresh backend is running live!');
 });
+
 app.use('/api/patients', patientRoutes);
-
-
+app.use('/api/auth', authRoutes); // <-- Yahan add karo
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on http://localhost:${PORT}`);
