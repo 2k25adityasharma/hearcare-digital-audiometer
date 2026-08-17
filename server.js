@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Patient = require('./models/Patient');
 const patientRoutes = require('./routes/patientRoutes');
+const testRoutes = require('./routes/testRoutes');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
   res.send('Fresh backend is running live!');
 });
 app.use('/api/patients', patientRoutes);
-
+app.use('/api/tests', testRoutes);
 
 
 app.listen(PORT, () => {
